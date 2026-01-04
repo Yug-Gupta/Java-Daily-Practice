@@ -15,3 +15,6 @@ Tags in HTML-
 <ul> unorder list
 <table> table
 <form> form
+
+Non-semantic element = div,span
+Semantic element = <header>,<nav>,<section>,<article>,<footer>,etc.

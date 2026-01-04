@@ -1,0 +1,28 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+.demo{
+    color: coral;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#demo1{
+    color: darkgreen;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+h2,h3{
+    color: blueviolet;
+    font-size: 15px;
+    font-weight: bold;
+}
