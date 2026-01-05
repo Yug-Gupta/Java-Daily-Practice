@@ -21,3 +21,9 @@
 Units - px,%,em,rem,vh,vw
 
 px screen ke size se data leta hai, % tumahre uss scrren size ke hisab se set hoga, vh aur vw yeh tumahre container ko bhi overlap kar dege pura.
+
+
+Smart Phones ---> (max-width <= 480px)
+Tablet ----> 768px
+Laptop ----> 1024px
+Desktop ----> 1200px

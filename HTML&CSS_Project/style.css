@@ -13,7 +13,7 @@ body {
 :root{
     --pm : #ff7e5f;
     --sc : #feb47b;
-    --normal : #4ecdc4;
+    --normal : #17bfb4;
     --tc : #fff;
     --bc : #1a1a1d;
 }
@@ -46,3 +46,144 @@ body {
 .nav-links a:hover{
     color: var(--normal);
 }
+
+.hero{
+    text-align: center;
+    padding: 100px 20px;
+    background: linear-gradient(
+        to right,
+        var(--pm),
+        var(--sc));
+    color: var(--tc);   
+}
+
+.hero .btn-primary{
+    padding: 12px 30px;
+    margin-top: 20px;
+    background-color: var(--normal);
+    color: var(--tc);
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: bold;
+    transition: transform 0.3s;
+}
+
+.hero .btn-primary:hover{
+    transform: scale(1.1);
+}
+
+.destinations{
+    padding: 60px 10%;
+    background-color: var(--tc);
+    text-align: center;
+}
+
+.destination-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.destination-card{
+    position: relative;
+    height: 300px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 15px;
+    overflow: hidden;
+    color: var(--tc);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-size: 1.5rem;
+    background-color: rgba(0, 0, 0, 0.3);
+    background-blend-mode: overlay;
+}
+
+
+.packages{
+    text-align: center;
+    padding: 60px 10%;
+    background-color: var(--sc);
+    color: #fff;
+}
+
+.package-list{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.package-card{
+    background-color: var(--pm);
+    padding: 20px 40px;
+    border-bottom: 10px;
+    font-weight: bold;
+    transition: transform 0.3s;
+}
+
+.package-card:hover{
+    transform: translateY(-10px);
+}
+
+.contactus{
+    text-align: center;
+    padding: 50px 20px;
+    background-color: var(--bc);
+    color: #fff;
+}
+
+.contactus .btn-secondary{
+    padding: 12px 30px;
+    margin-top: 20px;
+    background-color: var(--normal);
+    color: var(--tc);
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: bold;
+    transition: transform 0.3s;
+}
+
+.contactus .btn-secondary:hover{
+    transform: scale(1.1);
+}
+
+footer{
+    text-align: center;
+    padding: 20px; 
+    background-color: #333;
+    color: #fff;
+}
+
+
+/* Responsive Design */
+@media(max-widht: 768px) 
+{
+    .header{
+        flex-direction: column;
+        text-align: center;
+    }
+    .nav-links{
+        flex-direction: column;
+        gap: 10px;
+    }
+    .hero{
+        padding: 80px 10px;
+    }
+}
+
+@media(max-width: 480px){
+    .hero h2{
+        font-size: 1.5rem;
+    }
+    .destination-card h3{
+        font-size: 1.2rem;
+    }
+    .package-list{
+        flex-direction: column;
+    }
+}   
