@@ -1,0 +1,63 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+#parent{
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;   /* main axis */
+    align-items: center;    /* cross axis */
+    background-color: red;
+    height: 200px;
+    width: 200px;
+}
+
+#child1{
+    background-color: cadetblue;
+    height: 40px;
+    width: 40px;
+}
+#child2{
+    background-color: yellow;
+    height: 40px;
+    width: 40px;
+}
+#child3{
+    background-color: cornflowerblue;
+    height: 40px;
+    width: 40px;
+}
+
+button:hover{    /* Pseudo Classes */
+    background-color: yellowgreen;
+}
+
+p:first-child{   /* Pseudo Classes */
+    background-color: blueviolet;
+    display: inline-table;
+}
+
+h1::before{
+    content: "!!";
+    background-color: rgb(49, 227, 67);
+}
+h1::after{
+    content: "!!";
+    background-color: rgb(49, 227, 67);
+}
+
+#para::first-line{
+    font-size: 2em;
+}
+#para::selection{
+    background-color: yellow;
+    color: black;
+}
+
