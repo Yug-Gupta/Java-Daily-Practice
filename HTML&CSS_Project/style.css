@@ -35,3 +35,14 @@ body {
     gap: 20px;
     list-style: none;
 }
+
+.nav-links{
+    color: var(--tc);
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.nav-links a:hover{
+    color: var(--normal);
+}
