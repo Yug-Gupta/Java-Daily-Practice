@@ -3,25 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gupta Travels- Travel World With Us</title>
+    <meta name="description" content="Gupta Travels - Explore amazing destinations and exclusive travel packages around the world.">
+    <title>Gupta Travels - Travel World With Us</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header class="header">
-        <h1>Gupta Travels</h1>
-        <nav>
-            <ul class="nav-links">
-                <li><a href="#packages">Destination</a></li>
-                <li><a href="#packages">Package</a></li>
-                <li><a href="#packages">ContactUs</a></li>
-            </ul>
-        </nav>
+    <header class="header" role="banner">
+        <div class="header-container">
+            <h1>Gupta Travels</h1>
+            <nav class="navbar" role="navigation" aria-label="Main navigation">
+                <ul class="nav-links">
+                    <li><a href="#destinations">Destinations</a></li>
+                    <li><a href="#packages">Packages</a></li>
+                    <li><a href="#contactus">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
-    <section class="hero">
-        <h2>🌎Explore World With Us</h2>
-        <p>Travel the world with us and experience unforgettable adventures.</p>
-        <br>
-        <a href="#packages" class="btn-primary">Explore🚀</a>
+    <main>
+    <section class="hero" aria-label="Hero section">
+        <div class="hero-content">
+            <h2>🌎 Explore World With Us</h2>
+            <p>Travel the world with us and experience unforgettable adventures.</p>
+            <a href="#packages" class="btn-primary">Explore 🚀</a>
+        </div>
     </section>
     <section id="destinations" class="destinations">
         <h2>🌟Top Destinations</h2>
@@ -48,14 +53,16 @@
         </div>
     </section>
 
-    <section id="contactus" class="contactus">
-        <h2>📞  Contact Us</h2>
-        <p>Email: guptatravel@gmail.com</p>
-        <br>
-        <a href="#packages" class="btn-secondary">Book now✉️</a>
+    <section id="contactus" class="contactus" aria-label="Contact section">
+        <div class="contactus-content">
+            <h2>📞 Contact Us</h2>
+            <p><strong>Email:</strong> <a href="mailto:guptatravel@gmail.com">guptatravel@gmail.com</a></p>
+            <a href="mailto:guptatravel@gmail.com" class="btn-secondary">Book now ✉️</a>
+        </div>
     </section>
+    </main>
 
-    <footer>
+    <footer role="contentinfo">
         <p>&copy; 2026 Gupta Travels. All rights reserved.</p>
     </footer>
     
