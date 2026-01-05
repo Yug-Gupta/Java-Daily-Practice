@@ -316,13 +316,14 @@ main {
 }
 
 .contactus a[href^="mailto"] {
-    color: var(--accent-color);
-    text-decoration: none;
+    color: var(--text-color);
+    text-decoration: underline;
     transition: var(--transition);
+    font-weight: 600;
 }
 
 .contactus a[href^="mailto"]:hover {
-    text-decoration: underline;
+    color: var(--accent-color);
 }
 
 .btn-secondary {
@@ -371,15 +372,7 @@ footer {
 
 @media (max-width: 768px) {
     .header-container {
-        flex-direction: column;
-        text-align: center;
         padding: 15px 20px;
-    }
-
-    .nav-links {
-        flex-direction: column;
-        gap: 15px;
-        margin-top: 20px;
     }
 
     .hero {
