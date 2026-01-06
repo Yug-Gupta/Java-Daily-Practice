@@ -27,3 +27,21 @@ console.log(pi)
 var y;
 console.log(y);  
 
+
+var a = 10
+var b = a
+a += 5
+console.log(a);
+console.log(b);
+
+var arr1 = [1,2,3]
+var arr2 = arr1  // reference copy
+arr1.pop()
+console.log(arr1);
+console.log(arr2);
+
+var arr3 = [4,5,6]
+var arr4 = [...arr3]  // deep copy
+arr3.pop()
+console.log(arr3);
+console.log(arr4);
