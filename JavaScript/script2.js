@@ -52,12 +52,13 @@ var s = animal("lion")
 console.log(s)
 
 
-// 2. function expression-
+// 2. expression function-
 var fun = function(){
     console.log("Type of function expression")
 }
 fun()
 
+// 3. anonymous function-
 var y = function(){
     console.log("Type of anonymous function")
 }
