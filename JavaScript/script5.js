@@ -32,10 +32,10 @@ How to access element ?
 
 window.console.log("Yug")
 var ref = document.querySelector('h2');  //selection
-ref.textContent = "bfyhuvweufb"
+ref.textContent = "Gupta Ji"
 
 var h1 = document.querySelector("#h1");
-h1.textContent= "bfbwuif"
+h1.textContent= "Sab badhiya"
 
 var sab = document.querySelector(".text");
 sab.textContent = "chiku";
@@ -63,4 +63,11 @@ h5.innerHTML='<i>Helloe</i>';
 h5.style.color= "red";
 but.style.backgroundColor ="Blue";
 sab.style.fontFamily="Courier New";
+
+
+// add or remove CSS
+var dunia = document.querySelector("#para");
+dunia.style.color="green";
+dunia.classList.add("css");
+dunia.classList.remove("css");
 
