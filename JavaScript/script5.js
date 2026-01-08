@@ -31,4 +31,36 @@ How to access element ?
 */
 
 window.console.log("Yug")
+var ref = document.querySelector('h2');  //selection
+ref.textContent = "bfyhuvweufb"
+
+var h1 = document.querySelector("#h1");
+h1.textContent= "bfbwuif"
+
+var sab = document.querySelector(".text");
+sab.textContent = "chiku";
+
+
+/*
+modifying element in javascript
+---------------------------------
+
+1. textContent: will use textContent for only text because it will not understand html tags
+
+2. innerHTML will use when we have to use html tags
+
+
+*/
+
+var but = document.querySelector("#button");
+but.textContent= "Starting...";
+
+var h5 = document.querySelector("#hello");
+h5.textContent="hello"
+h5.innerHTML='<i>Helloe</i>';
+
+// adding css
+h5.style.color= "red";
+but.style.backgroundColor ="Blue";
+sab.style.fontFamily="Courier New";
 
