@@ -21,6 +21,9 @@ function fetchStdData(){
                 usersTableBody.appendChild(row);
             })
          })
+         .catch(error =>{
+            console.error('Error fetching data:',error);
+         });
 }
 
 window.onload = fetchStdData;
