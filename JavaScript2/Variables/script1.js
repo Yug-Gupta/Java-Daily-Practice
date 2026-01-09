@@ -34,4 +34,33 @@ var buddhu = "buddhu ho tum";   // lakin var mai hum use ar sakte hai issi leye 
 console.log(buddhu);
 
 
+/*NOTE-
+
+keyworrds      reassign      redeclare      scope
+var               Yes          Yes         function
+let               Yes          No           block
+const             No           No           block
+
+*/
+
+for(let i = 0;i<5;i++){
+    console.log(i);
+}
+
+function print(){
+    var x = "This is x";
+    console.log(x);
+}
+print();
+
+// * Interview Question-
+{
+    let p = "Hello";
+    var q = "Yug";
+    const r = "Kese ho";
+}
+
+// console.log(p);  // let scope inside the block
+console.log(q);  // var scope inside the function
+// console.log(r);  // const scope insode the block
 
