@@ -96,3 +96,27 @@ form.addEventListener("submit",(e)=>{
 })
 
 //----------------------------------------------------
+
+
+// Window and Document Event->
+window.addEventListener("load",()=>{
+    console.log("Page loaded")
+})
+
+window.addEventListener("scroll",()=>{
+    console.log("Scrolling...")
+})
+
+window.addEventListener("resize",()=>{
+    console.log("Window resized")
+})
+
+
+// Focus Event->
+input.addEventListener("focus",()=>{
+    console.log("Focus hai")
+})
+
+input.addEventListener("blur",()=>{
+    console.log("Focus gya")
+})
