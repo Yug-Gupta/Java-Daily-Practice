@@ -8,13 +8,18 @@
 <body>
     <h1 id="main-heading">Welcome to Development</h1>
     <p class="desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, cum.</p>
-    <button id="butn">Click this</button>
-    <script src="script.js">
+    <button id="btn">Click this</button>
+
+
+     
+    <script>
+        // Fetching Tag from HTML-->
         const heading = document.getElementById("main-heading");
         console.log(heading.innerText);
 
         const para = document.getElementsByClassName("desc")[0];
         console.log(para.innerText);
+
         const btn = document.getElementById("btn");
         console.log(btn.innerText);
     </script>
