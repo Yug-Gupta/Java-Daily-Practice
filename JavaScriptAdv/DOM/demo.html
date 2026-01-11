@@ -45,6 +45,18 @@
         for(let items of listItem){
             console.log(items.textContent);
         }
+
+        // Query selector-
+        const doc = document.querySelector(".desc");
+        console.log(doc);
+        
+        // Query selector all-
+        const desc = document.querySelectorAll(".desc");
+        desc.forEach((p,index)=>{
+            console.log(p.innerText);
+        });
+        
+        
     </script>
 </body>
 </html>
