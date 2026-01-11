@@ -23,7 +23,9 @@
 
     <button id="btn">Click this</button>
 
-
+    <div id="demo">
+        hello <strong>World</strong>
+    </div>
      
     <script>
         // Fetching Tag from HTML-->
@@ -55,6 +57,13 @@
         desc.forEach((p,index)=>{
             console.log(p.innerText);
         });
+
+
+        //innerText - gives you only inner text inside the element.
+        //innerHTML - gives you entire html content not just text
+        const ele = document.getElementById("demo");
+        console.log(ele.innerText);
+        console.log(ele.innerHTML);
         
         
     </script>
