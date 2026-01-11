@@ -7,7 +7,20 @@
 </head>
 <body>
     <h1 id="main-heading">Welcome to Development</h1>
-    <p class="desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, cum.</p>
+    <p class="desc">Spark 4.0 java full stack development</p>
+    <p class="desc">SuperOPS 1.0 Devops</p>
+    <div>
+        <h1 id="title">DSA</h1>
+        <p class="content">DSA courses</p>
+    </div>
+
+    <ul class="list">
+        <li>Java</li>
+        <li>HTML</li>
+        <li>JS</li>
+    </ul>
+
+
     <button id="btn">Click this</button>
 
 
@@ -17,11 +30,21 @@
         const heading = document.getElementById("main-heading");
         console.log(heading.innerText);
 
-        const para = document.getElementsByClassName("desc")[0];
-        console.log(para.innerText);
+        const para = document.getElementsByClassName("desc");
+        console.log(para.length);
+        
+        console.log(para[0].innerHTML);
+        console.log(para[1].innerHTML);
+        
 
         const btn = document.getElementById("btn");
         console.log(btn.innerText);
+
+        // Select all list item using tag name-
+        const listItem = document.getElementsByTagName("li");
+        for(let items of listItem){
+            console.log(items.textContent);
+        }
     </script>
 </body>
 </html>
