@@ -114,7 +114,7 @@
 function print(arr2){
     for(let i = 0;i<arr2.length;i++){
         if(arr2[i].age > 18 && arr2[i].gender == "male"){
-        console.log(arr2[i].name);
+        console.log(arr2[i]);
     }
     }
 }
