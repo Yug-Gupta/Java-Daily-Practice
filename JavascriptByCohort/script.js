@@ -69,17 +69,48 @@
 //     console.log(users[i]);
 // }
 
-// Objects-
+// // Objects-
 
-function greet(users){
-    console.log("Hello " +users.name +" Your age is:"+users.age);
+// function greet(users){
+//     console.log("Hello " +users.name +" your age is: "+users.age);
     
-}
-let users = {
-    name:"Yug",
-    age:20,
-    location:"Delhi"
-}
-greet(users);
-// console.log(users);
+// }
+// let users = {
+//     name:"Yug",
+//     age:20,
+//     location:"Delhi"
+// }
+// greet(users);
+// // console.log(users);
 
+// //Array of object-
+// let arr = ["Yug",23,{
+//     name:"Yug",
+//     gender:"Male"
+// }];
+// const res1 = arr[2];
+// const res2 = {
+//     name:"Yug",
+//     gender:"Male"
+// };
+// console.log(res1);
+// console.log(res2);
+
+
+// // Complex nested object-
+// let arr1 = ["Gupta",64,{
+//     name:"Yug",
+//     age:20,
+//     cities: ["Delhi","Ghaziabad","Kanpur",{
+//         country:"India",
+//         city:"Dholakpur"
+//     }]
+// }];
+// console.log(arr1);
+// console.log(arr1[2].cities[3].city);
+
+
+
+function(arr2){
+}
+const 
