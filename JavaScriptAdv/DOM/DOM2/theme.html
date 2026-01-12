@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="toggleTheme()">Toggle Theme</button>
+
+    <div id="app" class="light-theme">
+        <h2>Hello bro</h2>
+        <p>This is dynamic changing</p>
+    </div>
+
+    <style>
+        .light-theme{
+            background-color: white;
+            color: black;
+            padding: 20px;
+        }
+        .dark-theme{
+            background-color: #111;
+            color: white;
+            padding: 20px;
+        }
+    </style>
+
+    <script>
+        function toggleTheme(){
+            const app = document.getElementById("app");
+            app.classList.toggle("dark-theme");
+        }
+    </script>
+</body>
+</html>
