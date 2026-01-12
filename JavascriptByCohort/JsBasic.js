@@ -40,10 +40,8 @@
 // function sumString(a,b){
 //     return a+b;
 // }
-// let ass12 = sumString(33,43);
-// let ass1 = sumString("Java","Dev");
+// let ass1 = sumString("Java",25);
 // console.log(ass1);
-// console.log(ass12);
 
 
 // // Assignment 2-
