@@ -111,6 +111,25 @@
 
 
 
-function(arr2){
+function print(arr2){
+    for(let i = 0;i<arr2.length;i++){
+        if(arr2[i].age > 18 && arr2[i].gender == "male"){
+        console.log(arr2[i].name);
+    }
+    }
 }
-const 
+const users =[{
+    name:"Yug",
+    age:20,
+    gender:"male"
+},{
+    name:"Shivani",
+    age:19,
+    gender:"female"
+},{
+    name:"Rahul",
+    age:19,
+    gender:"male"
+}]
+
+print(users);
