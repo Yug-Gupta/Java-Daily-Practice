@@ -17,12 +17,33 @@
 
 
 
-// Input-Output operations-
+// Input-Output operations->
 
-const fs = require("fs");
-const contents = fs.readFileSync("a.txt","utf-8");
-console.log(contents);
+let fs = require("fs");
 
-const contents1 = fs.readFileSync("b.txt","utf-8");
-console.log(contents1);
+// Synchronously->
+// const contents1 = fs.readFileSync("b.txt","utf-8");  // synchronously
+// console.log(contents1);
+
+
+function read(err,data){
+    if(err){
+        console.log("File not found!");
+    }else{
+        console.log(data);
+    }
+}
+
+fs.readFile("a.txt","utf-8",read);  // asynchronously
+fs.readFile("b.txt","utf-8",read);  // asynchronously
+
+console.log("Done");
+
+
+function timeout(){
+    console.log("Click on button");
+}
+console.log("Hi");
+setTimeout(timeout,15000);
+console.log("Welcome to loupe.");
 
