@@ -44,6 +44,27 @@ function timeout(){
     console.log("Click on button");
 }
 console.log("Hi");
-setTimeout(timeout,15000);  // This is asynchronous.
+setTimeout(timeout,1000);  // This is asynchronous.
 console.log("Welcome to loupe.");
+
+let c = 0;
+for(let i = 0;i<10000000;i++){
+    c = c+1;
+}
+console.log("Expensive operation done");
+
+/*
+1. Option 1:  -> Correct
+Hi
+Welcome to loupe
+Expensive operation done
+Click the button
+
+
+2. Option 2:  -> Incorrect
+Hi
+Welcome to loupe
+Click the button
+Expensive opearation done
+*/
 
