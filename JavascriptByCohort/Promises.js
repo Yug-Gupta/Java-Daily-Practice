@@ -23,22 +23,56 @@
 // console.log(area2);
 
 
-const date = new Date();
-console.log(date.getMonth());
-console.log(date.getFullYear());
+
+// // Some jS inbuilt classes ->
+
+// const date = new Date();   // created a new object of date class
+// console.log(date.getMonth());
+// console.log(date.getFullYear());
 
 
 
-// In JS also have a map class->
+// // In JS also have a map class->
 
-const map = new Map();
-map.set('name','alice');
-map.set('age',28);
-map.set(27,'Birth-date');
-// console.log(map);
-console.log(map.get('name'));
-console.log(map.get(27));
+// const map = new Map();
+// map.set('name','alice');
+// map.set('age',28);
+// map.set(27,'Birth-date');
+// // console.log(map);
+// console.log(map.get('name'));
+// console.log(map.get(27));
 
+
+
+/* 
+Promise class ->
+ Promise class gives u a primise that I will return you something in the future.
+
+*/
+
+
+// NOTE-> Defining a promise is hard but using a promise a easy
+
+// A promise in JS is an object that represents the eventual completion (or failures) of an asynchronous operation its returning value.
+
+// //Promises
+// function log_Name(){
+//     console.log("Yug");
+// }
+// setTimeout(log_Name,5000); // callback the log_Name function
+
+
+
+function setTimeoutPromisified(ms){
+    return new Promise(resolve => setTimeout(resolve,ms));
+}
+
+function callback(){
+    console.log("3 seconds have passed");
+}
+setTimeout(callback,3000);  // callback version
+
+setTimeoutPromisified(3000).then(callback);  //promisified version
 
 
 
