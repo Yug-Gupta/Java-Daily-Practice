@@ -51,7 +51,10 @@ let c = 0;
 for(let i = 0;i<10000000;i++){
     c = c+1;
 }
-console.log("Expensive operation done");
+console.log("Expensive operation done");  // This is CPU intensive task
+
+
+//NOTE -> CPU intensive task completes first after the input-output(IO) task will complete.
 
 /*
 1. Option 1:  -> Correct
