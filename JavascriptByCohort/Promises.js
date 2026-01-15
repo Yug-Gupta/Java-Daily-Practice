@@ -13,6 +13,8 @@
 //     }
 // }
 
+// const { useCallback } = require("react");
+
 // const reac = new Rectangle(2,3,"red");
 // const reac2 = new Rectangle(10,23,"black");
 // const area = reac.area();
@@ -78,15 +80,45 @@ Promise class ->
 
   
 
-function waitForSolve(resolve){  // resolve = main
-    setTimeout(resolve,3000);
-}
-function main(){
-    console.log("main is called");
-}
+// function waitForSolve(resolve){  // resolve = main
+//     setTimeout(resolve,3000);
+// }
+// function main(){
+//     console.log("main is called");
+// }
 
-function setTimeoutPromisified(){
-    return new Promise(waitForSolve);
-}
+// function setTimeoutPromisified(){
+//     return new Promise(waitForSolve);
+// }
 
-setTimeoutPromisified().then(main);
+// setTimeoutPromisified().then(main);
+
+
+
+
+// Promisified version of setTimeOut->
+// function random(resolve){  // resolve is also a function
+//     setTimeout(resolve,3000);
+// }
+// let p = new Promise(random);   // supposed to return you something eventually
+
+// // using the eventual value returned by the promise
+// function callback(){
+//     console.log("Promise succeded");
+// }
+// p.then(callback);
+
+
+
+
+// create the promisified version of fs.readFile , fs.writeFile , cleanFile ->
+
+let fs = require("fs");
+function read(err,data){
+    if(err){
+        console.log("Error occur");
+    }else{
+        console.log("Read function called-");
+    }
+}
+const ct1 = fs.readFile("a.txt","utf-8",read);
