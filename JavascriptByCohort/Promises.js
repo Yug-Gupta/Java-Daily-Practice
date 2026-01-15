@@ -63,16 +63,30 @@ Promise class ->
 
 
 
-function setTimeoutPromisified(ms){
-    return new Promise(resolve => setTimeout(resolve,ms));
+// function setTimeoutPromisified(ms){
+//     return new Promise(resolve => setTimeout(resolve,ms));
+// }
+
+// function callback(){
+//     console.log("3 seconds have passed");
+// }
+// setTimeout(callback,3000);  // callback version
+
+// setTimeoutPromisified(3000).then(callback);  //promisified version
+
+// Promisified version are more syntatically cleaner.
+
+  
+
+function waitForSolve(resolve){  // resolve = main
+    setTimeout(resolve,3000);
+}
+function main(){
+    console.log("main is called");
 }
 
-function callback(){
-    console.log("3 seconds have passed");
+function setTimeoutPromisified(){
+    return new Promise(waitForSolve);
 }
-setTimeout(callback,3000);  // callback version
 
-setTimeoutPromisified(3000).then(callback);  //promisified version
-
-
-
+setTimeoutPromisified().then(main);
