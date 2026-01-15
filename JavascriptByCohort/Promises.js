@@ -113,12 +113,23 @@ Promise class ->
 
 // create the promisified version of fs.readFile , fs.writeFile , cleanFile ->
 
-let fs = require("fs");
-function read(err,data){
-    if(err){
-        console.log("Error occur");
-    }else{
-        console.log("Read function called-");
-    }
+
+
+// Promisified version of the readfile function->
+const fs = require("fs");
+
+function readTheFile(sendTheFinalValueHere){
+    fs.readFile("a.txt","utf-8",function(err,data) {
+        sendTheFinalValueHere(data);
+    });
 }
-const ct1 = fs.readFile("a.txt","utf-8",read);
+
+function readFile(fileName){
+    return new Promise(readTheFile);
+}
+const p = readFile();
+
+function callback(contents){
+    console.log("Promise success");
+}
+p.then(callback);
