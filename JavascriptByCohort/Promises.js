@@ -136,8 +136,8 @@ Promise class ->
 
 
 
-// Practice of promises-
 
+// Practice of promises-
 const { log } = require("console");
 const fs = require("fs");
 
