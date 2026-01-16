@@ -115,21 +115,24 @@ Promise class ->
 
 
 
-// Promisified version of the readfile function->
-const fs = require("fs");
+// // Promisified version of the readfile function->
+// const fs = require("fs");
 
-function readTheFile(sendTheFinalValueHere){
-    fs.readFile("a.txt","utf-8",function(err,data) {
-        sendTheFinalValueHere(data);
-    });
-}
+// function readTheFile(sendTheFinalValueHere){
+//     fs.readFile("a.txt","utf-8",function(err,data) {
+//         sendTheFinalValueHere(data);
+//     });
+// }
 
-function readFile(fileName){
-    return new Promise(readTheFile);
-}
-const p = readFile();
+// function readFile(fileName){
+//     return new Promise(readTheFile);
+// }
+// const p = readFile();
 
-function callback(contents){
-    console.log("Promise success");
-}
-p.then(callback);
+// function callback(contents){
+//     console.log("Promise success");
+// }
+// p.then(callback);
+
+
+
