@@ -136,3 +136,32 @@ Promise class ->
 
 
 
+// Practice of promises-
+
+const { log } = require("console");
+const fs = require("fs");
+
+console.log("---top of the file---");
+
+function readTheFile(resolve){
+    console.log("readTheFile called");
+    setTimeout(function (){
+        console.log("callBack based setTimeOut completed");
+        resolve();
+    },3000);
+}
+
+function setTimeoutPromisified(fileName){
+    console.log("setTimeOutPromisified called");
+    return new Promise(readTheFile);
+}
+
+const p = setTimeoutPromisified();
+
+function callback(){
+    console.log("timer is done");
+}
+p.then(callback);
+
+console.log("---end of the file---");
+
