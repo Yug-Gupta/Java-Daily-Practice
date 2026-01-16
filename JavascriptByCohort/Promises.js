@@ -146,7 +146,7 @@ console.log("---top of the file---");
 function readTheFile(resolve){
     console.log("readTheFile called");
     setTimeout(function (){
-        console.log("callBack based setTimeOut completed");
+        console.log("callBack based setTimeOut completed"); 
         resolve();
     },3000);
 }
