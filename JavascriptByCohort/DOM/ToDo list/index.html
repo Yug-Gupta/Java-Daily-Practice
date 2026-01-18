@@ -4,13 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do list</title>
-    <style>
-        .todo {
-            background-color: green;
-        }
-    </style>
 </head>
-<body style="background-color: black; color: #fff;" ">
+<body>
     <h1>To-Do list</h1>
     <h4 class="todo">1. Take class</h4>
     <h4 class="todo">2. Go out to eat</h4>
@@ -19,7 +14,7 @@
         <input type="text" placeholder="Add your To-Do task"></input>
         <button id="btn" onclick="Add()">Add Todo</button>
     </div>
-    <script>
+    <script src="script.js">
         function Add(){
             const inputEle = document.querySelector("input");
             const data = inputEle.value;
