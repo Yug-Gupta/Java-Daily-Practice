@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do app-</title>
+</head>
+<body>
+    <div id="container"></div>
+    <input id="inp" type="text">
+    <button onclick="addTodo()">Add To-Do</button>
+</body>
+<script>
+    function addTodo(){
+        let ctr = 1;
+        const inp = document.getElementById("inp");
+        const value = inp.value;
+        const spanEl = document.createElement("span");
+        const buttonEl = document.createElement("button");
+        spanEl.innerHTML = value;
+        buttonEl.innerHTML = "Delete";
+        const divEl = document.createElement("div");
+        divEl.appendChild(spanEl);
+        divEl.appendChild(buttonEl);
+        const paretnEl = document.getElementById("container");
+        paretnEl.appendChild(divEl);
+    }
+    // function deleteTodo(index){
+    //     const ele = document.getElementById("todo-"+index);
+    //     ele.parentNode.removeChild(ele);
+    // }
+</script>
+</html>
