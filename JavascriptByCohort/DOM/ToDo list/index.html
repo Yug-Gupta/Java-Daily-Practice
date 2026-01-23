@@ -1,31 +1,49 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta>
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do App</title>
+    <style>
+        body{
+            background-color: black;
+            color: #fff;
+        }
+        #btn{
+            margin-top: 15px;
+            margin-left: 10px;
+            height: 30px;
+            width: 70px;
+        }
+        #delbtn{
+            display: flex;
+        }
+    </style>
 </head>
-
 <body>
-    <input type="text"></input>
-    <button onclick="addTodo()">Add todo</button>
+    <h1 style="text-align: center;">
+        To-Do List App-
+    </h1>
+    <br><br>
+    <div id="container"></div>
+    <input id="inp" type="text" placeholder="Add your item in the list">
+    <button onclick="addTodo()">Add To-Do</button>
 </body>
 <script>
     let ctr = 1;
-    function addTodo(){
-        const inputEl = document.querySelector("input");
-        const value = inputEl.value;
-
-        const newDivEl = document.createElement("div");
-        newDivEl.setAttribute("id","todo-"+ctr);
-        newDivEl.innerHTML = "<div>" +value+ "</div><button onclick='deleteTodo(" + ctr + ")'>Delete</button>"
-
-        document.querySelector("body").appendChild(newDivEl);
-        ctr = ctr + 1;
-    }
-
     function deleteTodo(index){
-        const element = document.getElementById("todo-"+index);
-        element.parentNode.removeChild(element);
+        const ele = document.getElementById("todo-"+index);
+        ele.parentNode.removeChild(ele);
+    }
+    function addTodo(){
+        const inp = document.getElementById("inp");
+        const value = inp.value;
+        const divEl = document.createElement("div");
+        divEl.setAttribute("id","todo-"+ctr);
+        divEl.innerHTML = "<div id='delbtn'><h4>"+ctr+"."+inp.value+"</h4><button id='btn' onclick='deleteTodo("+ctr+")'>Delete</button></div>";
+        const parentEl = document.getElementById("container");
+        parentEl.appendChild(divEl);
+        ctr = ctr+1;
     }
 </script>
 </html>
