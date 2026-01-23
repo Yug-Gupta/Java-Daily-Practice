@@ -1,46 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-Do list</title>
-    <style>
-        .dobtn {
-            margin-left: 10px;
-            height: 50px;
-        }
-    </style>
-</head>
+<html>
+
+
 <body>
-    <h1>To-Do list</h1>
-    <div>
-        <div id="todo-1" style="display: flex;">
-            <h4 class="todo">1. Take class</h4>
-            <button class="dobtn" onclick="deleteTodo(1)">Delete</button>
-        </div>
-        <div id="todo-2" style="display: flex;">
-            <h4 class="todo">2. Go out to eat</h4>
-            <button class="dobtn" onclick="deleteTodo(2)">Delete</button>
-        </div>
-        <div id="todo-3" style="display: flex;">
-            <h4 class="todo">3. Go to gym</h4>
-            <button class="dobtn" onclick="deleteTodo(3)">Delete</button>
-        </div>
-    </div>
-    <br><br>
-    <div>
-        <input type="text" placeholder="Add your To-Do task"></input>
-        <button id="btn" onclick="addTodo()">Add Todo</button>
-    </div>
-    <script>
-        function deleteTodo(index){
-            const element = document.getElementById("todo-"+index);
-            element.parentNode.removeChild(element);
-        }
-        function addTodo(){
-            const create = document.getElementById("btn");
-            create.parentNode.appendChild()
-        }
-    </script>
+    <input type="text"></input>
+    <button onclick="addTodo()">Add todo</button>
 </body>
+<script>
+    function addTodo(){
+        const inputEl = document.querySelector("input");
+        const value = inputEl.value;
+        const newDivEl = document.createElement("div");
+        newDivEl.innerHTML = value;
+        document.querySelector("body").appendChild(newDivEl);
+    }
+</script>
 </html>
