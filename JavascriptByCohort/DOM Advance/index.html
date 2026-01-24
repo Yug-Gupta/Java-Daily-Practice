@@ -6,6 +6,7 @@
     <title>Document</title>
 </head>
 <body>
+    <div id="todos"></div>
     <input type="text">
     <button onclick="addTodo()">Add To-Do</button>
 </body>
@@ -22,6 +23,20 @@
             
         })
         render();
+    }
+    function render(){
+        document.querySelector("#todos").innerHTML = "";
+        for(let i = 0;i<todos.length;i++){
+            const todo = todos[i];
+            const divEl = document.createElement("div");
+            const h1El = document.createElement("h1");
+            const buttonEl = document.createElement("button");
+            h1El.innerHTML = todo.title;
+            buttonEl.innerHTML = "Delete";
+            divEl.appendChild(h1El);
+            divEl.appendChild(buttonEl);
+            document.getElementById("todos").appendChild(divEl);
+        }
     }
 </script>
 </html>
