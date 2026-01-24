@@ -11,19 +11,20 @@
     <button onclick="addTodo()">Add To-Do</button>
 </body>
 <script>
+    let ctr = 1;
     function addTodo(){
-        let ctr = 1;
         const inp = document.getElementById("inp");
         const value = inp.value;
         const spanEl = document.createElement("span");
         const buttonEl = document.createElement("button");
-        spanEl.innerHTML = value;
+        spanEl.innerHTML = ctr+"."+value;
+        ctr++;
         buttonEl.innerHTML = "Delete";
         const divEl = document.createElement("div");
         divEl.appendChild(spanEl);
         divEl.appendChild(buttonEl);
         const paretnEl = document.getElementById("container");
-        paretnEl.appendChild(divEl);
+        paretnEl.appendChild(divEl);   
     }
     // function deleteTodo(index){
     //     const ele = document.getElementById("todo-"+index);
