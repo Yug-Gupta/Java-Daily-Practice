@@ -9,7 +9,8 @@
     <div id="todos"></div>
     <input type="text">
     <button onclick="addTodo()">Add To-Do</button>
-    <button onclick="deleteTodo()">Delete last To-Do</button>
+    <button onclick="deleteLastTodo()">Delete last To-Do</button>
+    <button onclick="deleteFirstToDo()">Delete First To-Do</button>
 </body>
 <script>
     let todos = [];
@@ -19,10 +20,12 @@
         })
         render();
     }
-    function deleteTodo(){
-        todos.remove({
-            
-        })
+    function deleteLastTodo(){
+        todos.splice(todos.length-1,1);
+        render();
+    }
+    function deleteFirstToDo(){
+        todos.splice(0,1);
         render();
     }
     function render(){
