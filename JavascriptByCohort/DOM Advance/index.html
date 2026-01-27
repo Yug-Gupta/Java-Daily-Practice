@@ -28,18 +28,29 @@
         todos.splice(0,1);
         render();
     }
+    function deleteToDo(){
+        todos.splice(1);
+        render();
+    }
+
+    
+    function create_ToDo_Component(todos){
+        const divEl = document.createElement("div");
+        const h1El = document.createElement("h1");
+        const buttonEl = document.createElement("button");
+        h1El.innerHTML = todos.title;
+        buttonEl.innerHTML = "Delete";
+        divEl.appendChild(h1El);
+        divEl.appendChild(buttonEl);
+        return divEl;
+    }
+
+    // react framework prototype- 
     function render(){
         document.querySelector("#todos").innerHTML = "";
         for(let i = 0;i<todos.length;i++){
-            const todo = todos[i];
-            const divEl = document.createElement("div");
-            const h1El = document.createElement("h1");
-            const buttonEl = document.createElement("button");
-            h1El.innerHTML = todo.title;
-            buttonEl.innerHTML = "Delete";
-            divEl.appendChild(h1El);
-            divEl.appendChild(buttonEl);
-            document.getElementById("todos").appendChild(divEl);
+            const element = create_ToDo_Component(todos[i]);
+            document.querySelector("#todos").appendChild(element);
         }
     }
 </script>
