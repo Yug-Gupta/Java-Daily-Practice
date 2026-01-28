@@ -28,28 +28,32 @@
         todos.splice(0,1);
         render();
     }
-    function deleteToDo(){
-        todos.splice(1);
+    function deleteToDo(index){
+        todos.splice(index,1);
         render();
     }
 
     
-    function create_ToDo_Component(todos){
+    function create_ToDo_Component(todos,index){
         const divEl = document.createElement("div");
         const h1El = document.createElement("h1");
         const buttonEl = document.createElement("button");
         h1El.innerHTML = todos.title;
         buttonEl.innerHTML = "Delete";
+        buttonEl.onclick = function(){
+            deleteToDo(index);
+        }
         divEl.appendChild(h1El);
         divEl.appendChild(buttonEl);
         return divEl;
     }
 
-    // react framework prototype- 
+    // react-
+    // Reconsilation -> The difference between the old state and the new state. 
     function render(){
         document.querySelector("#todos").innerHTML = "";
         for(let i = 0;i<todos.length;i++){
-            const element = create_ToDo_Component(todos[i]);
+            const element = create_ToDo_Component(todos[i],i);
             document.querySelector("#todos").appendChild(element);
         }
     }
