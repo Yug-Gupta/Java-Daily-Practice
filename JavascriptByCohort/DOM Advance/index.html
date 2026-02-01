@@ -4,13 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do App</title>
+    <style>
+        #con{
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #container{
+            background-color: rgb(96, 150, 221);
+            padding: 15px;
+            display: flex;
+            gap: 10px;              /* space between items */
+            align-items: center;    /* vertical alignment */
+        }
+
+    </style>
 </head>
 <body>
-    <div id="todos"></div>
-    <input type="text">
-    <button onclick="addTodo()">Add To-Do</button>
-    <button onclick="deleteLastTodo()">Delete last To-Do</button>
-    <button onclick="deleteFirstToDo()">Delete First To-Do</button>
+    <body>
+    <div id="con">
+        <div>
+            <h1 style="text-align: center;">To-Do List -</h1>
+
+            <div id="container">
+                <div id="todos"></div>
+                <input type="text">
+                <button onclick="addTodo()">Add To-Do</button>
+                <button onclick="deleteLastTodo()">Delete last To-Do</button>
+                <button onclick="deleteFirstToDo()">Delete First To-Do</button>
+            </div>
+        </div>
+    </div>
+</body>
+
 </body>
 <script>
     let todos = [];
