@@ -8,8 +8,8 @@ function calculateSum(a,b){
 }
 
 app.get('/',function (req,res){
-    const a = req.query.a;
-    const b = req.query.b;
+    const a = Number(req.query.a);
+    const b = Number(req.query.b);
     const ans = calculateSum(a,b);
     res.send(ans.toString());
 })
