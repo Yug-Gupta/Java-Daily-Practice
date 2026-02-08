@@ -18,4 +18,6 @@ app.post('/',function (req,res){
     res.send('Hello World from the post endpoint');
 })
 
-app.listen(3001);  // Port number
+app.listen(3001,()=>{
+    console.log('Server is running on http://localhost:3001/');
+});  // Port number
