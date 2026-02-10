@@ -8,12 +8,24 @@ const users = [{
         healthy : false
     }, {
         healthy : true
-    }]
+    } ]
 }]
 
 app.get("/",function(req,res){
     const johnkidneys = users[0].kidneys;
-    console.log(johnkidneys);
+    const numberofkidneys = johnkidneys.length;
+    let numberofHealthyKidney = 0;
+    for(let i = 0;i<johnkidneys.length;i++){
+        if(johnkidneys[i].healthy){
+            numberofHealthyKidney++;
+        }
+    }
+    const numberofUnhealthyKidney = numberofkidneys - numberofHealthyKidney;
+    res.json({
+        johnkidneys,
+        numberofHealthyKidney,
+        numberofUnhealthyKidney
+    })
 })
 
 app.post("/",function(req,res){
