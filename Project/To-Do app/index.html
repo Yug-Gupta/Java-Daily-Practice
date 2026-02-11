@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern To-Do App 2025</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Vue.js 3 -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6366f1',
+                        secondary: '#a855f7',
+                        darkBg: '#0f172a',
+                        glass: 'rgba(255, 255, 255, 0.1)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-purple-100 dark:from-gray-900 dark:to-gray-800 min-h-screen transition-colors duration-500 text-gray-800 dark:text-gray-100 font-sans antialiased selection:bg-primary selection:text-white">
+
+    <div id="app" class="container mx-auto px-4 py-10 max-w-2xl">
+        
+        <!-- Header -->
+        <header class="flex justify-between items-center mb-8">
+            <div>
+                <h1 class="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
+                    TaskMaster
+                </h1>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Organize your life, effortlessly.</p>
+            </div>
+            <button @click="toggleDarkMode" class="p-3 rounded-full bg-white dark:bg-gray-700 shadow-lg hover:scale-110 transition-transform duration-200">
+                <i class="fas" :class="isDark ? 'fa-sun text-yellow-400' : 'fa-moon text-gray-600'"></i>
+            </button>
+        </header>
+
+        <!-- Input Section -->
+        <div class="glass-panel p-4 mb-6 rounded-2xl shadow-xl relative z-10">
+            <div class="flex items-center gap-2 mb-3">
+                <button @click="startVoiceInput" class="p-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-primary" title="Voice Input">
+                    <i class="fas fa-microphone" :class="{'animate-pulse text-red-500': isListening}"></i>
+                </button>
+                <input 
+                    v-model="newTask" 
+                    @keyup.enter="addTask"
+                    type="text" 
+                    placeholder="Add a new task..." 
+                    class="flex-1 bg-transparent border-none outline-none text-lg px-2 placeholder-gray-400 dark:placeholder-gray-500"
+                >
+            </div>
+            <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+                <input v-model="newTaskDate" type="datetime-local" class="bg-white/50 dark:bg-gray-700/50 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 ring-primary/50 text-gray-600 dark:text-gray-200">
+                <select v-model="newTaskCategory" class="bg-white/50 dark:bg-gray-700/50 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 ring-primary/50 text-gray-600 dark:text-gray-200 cursor-pointer"><option v-for="c in categories" :value="c">{{ c }}</option></select>
+                <select v-model="newTaskPriority" class="bg-white/50 dark:bg-gray-700/50 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 ring-primary/50 text-gray-600 dark:text-gray-200 cursor-pointer"><option v-for="p in priorities" :value="p">{{ p }}</option></select>
+                
+                <button @click="addTask" class="ml-auto bg-gradient-to-r from-primary to-secondary text-white px-6 py-2 rounded-xl font-semibold shadow-lg hover:shadow-primary/50 hover:-translate-y-0.5 transition-all duration-200">Add</button>
+            </div>
+        </div>
+
+        <!-- AI Suggestion & Filters -->
+        <div class="flex flex-wrap justify-between items-center mb-6 gap-4">
+            <button @click="suggestTask" class="text-sm flex items-center gap-2 text-secondary hover:text-primary transition-colors font-medium">
+                <i class="fas fa-wand-magic-sparkles"></i> AI Suggest
+            </button>
+            
+            <div class="flex bg-white dark:bg-gray-800 p-1 rounded-lg shadow-sm">
+                <button v-for="f in filters" :key="f" 
+                    @click="currentFilter = f"
+                    class="px-4 py-1.5 rounded-md text-sm font-medium transition-all duration-200"
+                    :class="currentFilter === f ? 'bg-primary text-white shadow-md' : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'">
+                    {{ f }}
+                </button>
+            </div>
+        </div>
+
+        <!-- Task List -->
+        <transition-group name="list" tag="ul" class="space-y-3">
+            <li v-for="task in filteredTasks" :key="task.id" 
+                class="group flex flex-col p-4 bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 border-l-4"
+                :class="[task.completed ? 'border-green-400 opacity-60' : 'border-primary', isOverdue(task) ? '!border-red-500' : '']">
+                
+                <div class="flex items-start gap-3 w-full">
+                    <button @click="toggleComplete(task)" class="mt-1 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors duration-200 shrink-0"
+                        :class="task.completed ? 'bg-green-400 border-green-400' : 'border-gray-300 hover:border-primary'">
+                        <i v-if="task.completed" class="fas fa-check text-white text-xs"></i>
+                    </button>
+
+                    <!-- View Mode -->
+                    <div v-if="!task.isEditing" class="flex-1 min-w-0">
+                        <span class="text-lg block break-words" :class="{'line-through text-gray-400': task.completed}">
+                            {{ task.text }}
+                        </span>
+                        <div class="flex flex-wrap gap-2 mt-2 text-xs">
+                            <span v-if="task.dueDate" class="px-2 py-0.5 rounded bg-gray-100 dark:bg-gray-700 flex items-center gap-1" :class="{'text-red-500 font-bold': isOverdue(task)}">
+                                <i class="far fa-clock"></i> {{ formatDate(task.dueDate) }}
+                            </span>
+                            <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200">{{ task.category }}</span>
+                            <span class="px-2 py-0.5 rounded" :class="{'bg-green-100 text-green-700': task.priority === 'Low', 'bg-yellow-100 text-yellow-700': task.priority === 'Medium', 'bg-red-100 text-red-700': task.priority === 'High'}">{{ task.priority }}</span>
+                        </div>
+                    </div>
+
+                    <!-- Edit Mode -->
+                    <div v-else class="flex-1 flex gap-2">
+                        <input v-model="task.tempText" @keyup.enter="saveEdit(task)" class="flex-1 bg-gray-50 dark:bg-gray-700 rounded px-2 py-1 outline-none border border-primary text-lg">
+                        <button @click="saveEdit(task)" class="text-green-500 hover:bg-green-50 p-2 rounded"><i class="fas fa-check"></i></button>
+                        <button @click="cancelEdit(task)" class="text-red-500 hover:bg-red-50 p-2 rounded"><i class="fas fa-times"></i></button>
+                    </div>
+
+                    <div class="flex flex-col gap-1 opacity-0 group-hover:opacity-100 transition-opacity" v-if="!task.isEditing">
+                        <button @click="startEditing(task)" class="text-gray-400 hover:text-primary p-1" title="Edit"><i class="fas fa-pen"></i></button>
+                        <button @click="deleteTask(task.id)" class="text-gray-400 hover:text-red-500 p-1" title="Delete"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                </div>
+            </li>
+        </transition-group>
+
+        <p v-if="tasks.length === 0" class="text-center text-gray-400 mt-10 italic">No tasks yet. Start by adding one!</p>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
