@@ -15,6 +15,11 @@ createApp({
         const isDark = ref(false);
         const isListening = ref(false);
         const currentThemeName = ref('cosmic');
+        const view = ref('login'); // 'login', 'register', 'app'
+        const token = ref(localStorage.getItem('authToken') || null);
+        const authForm = ref({ email: '', password: '' });
+        const authError = ref('');
+
         const taskProgress = computed(() => {
             if (tasks.value.length === 0) return 0;
             const completed = tasks.value.filter(t => t.completed).length;
@@ -41,23 +46,22 @@ createApp({
             "Clean the workspace"
         ];
 
-        // Load from Backend/LocalStorage
+        // Load initial state
         onMounted(() => {
-            // Fetch from Backend API
-            fetch('/api/tasks')
-                .then(res => res.json())
-                .then(data => tasks.value = data)
-                .catch(err => console.error("Error fetching tasks:", err));
-
             // Load theme
             const savedTheme = localStorage.getItem('appTheme') || 'cosmic';
             setTheme(savedTheme);
 
             // Check system preference for dark mode
-            if (localStorage.getItem('darkMode') === 'true' || 
+            if (localStorage.getItem('darkMode') === 'true' ||
                (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
                 isDark.value = true;
                 document.documentElement.classList.add('dark');
+            }
+
+            if (token.value) {
+                view.value = 'app';
+                fetchTasks();
             }
         });
 
@@ -77,15 +81,15 @@ createApp({
 
             const taskObj = {
                 id: Date.now(),
-                text: newTask.value,
+                text: taskText,
                 completed: false,
                 createdAt: new Date(),
-                dueDate: newTaskDate.value,
+                dueDate: dueDate,
                 category: newTaskCategory.value,
                 priority: newTaskPriority.value,
                 isEditing: false
             };
-            
+
             // Save to Backend
             await fetch('/api/tasks', {
                 method: 'POST',
@@ -94,7 +98,7 @@ createApp({
             });
 
             tasks.value.unshift(taskObj); // Optimistic update
-            
+
             newTask.value = '';
             newTaskDate.value = '';
             newTaskCategory.value = 'Personal';
@@ -102,16 +106,22 @@ createApp({
         };
 
         const deleteTask = async (id) => {
-            await fetch(`/api/tasks/${id}`, { method: 'DELETE' });
+            await fetch(`/api/tasks/${id}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${token.value}` }
+            });
             tasks.value = tasks.value.filter(t => t.id !== id);
         };
 
         const toggleComplete = async (task) => {
             task.completed = !task.completed;
-            
+
             await fetch(`/api/tasks/${task.id}`, {
                 method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token.value}`
+                },
                 body: JSON.stringify({ completed: task.completed })
             });
 
@@ -182,7 +192,10 @@ createApp({
             
             await fetch(`/api/tasks/${task.id}`, {
                 method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token.value}`
+                },
                 body: JSON.stringify({ text: task.text })
             });
         };
@@ -196,6 +209,71 @@ createApp({
         const isOverdue = (task) => {
             if (!task.dueDate) return false;
             return new Date(task.dueDate) < new Date();
+        };
+
+        // Auth Methods
+        const fetchTasks = async () => {
+            try {
+                const res = await fetch('/api/tasks', {
+                    headers: { 'Authorization': `Bearer ${token.value}` }
+                });
+                if (!res.ok) throw new Error('Could not fetch tasks.');
+                tasks.value = await res.json();
+            } catch (err) {
+                console.error(err);
+                logout(); // If token is invalid, log out
+            }
+        };
+
+        const handleLogin = async () => {
+            authError.value = '';
+            try {
+                const res = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(authForm.value)
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    token.value = data.token;
+                    localStorage.setItem('authToken', data.token);
+                    view.value = 'app';
+                    fetchTasks();
+                } else {
+                    authError.value = data.message || 'Login failed';
+                }
+            } catch (err) {
+                console.error(err);
+                authError.value = 'Unable to connect to server. Ensure Node.js is running.';
+            }
+        };
+
+        const handleRegister = async () => {
+            authError.value = '';
+            try {
+                const res = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(authForm.value)
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    view.value = 'login';
+                    alert('Registration successful! Please sign in.');
+                } else {
+                    authError.value = data.message || 'Registration failed';
+                }
+            } catch (err) {
+                console.error(err);
+                authError.value = 'Unable to connect to server. Ensure Node.js is running.';
+            }
+        };
+
+        const logout = () => {
+            token.value = null;
+            localStorage.removeItem('authToken');
+            tasks.value = [];
+            view.value = 'login';
         };
 
         // Computed
@@ -216,6 +294,9 @@ createApp({
             themes,
             setTheme,
             taskProgress,
+            view,
+            authForm,
+            authError,
             currentFilter,
             filters,
             isDark,
@@ -231,7 +312,10 @@ createApp({
             saveEdit,
             cancelEdit,
             formatDate,
-            isOverdue
+            isOverdue,
+            handleLogin,
+            handleRegister,
+            logout
         };
     }
 }).mount('#app');
