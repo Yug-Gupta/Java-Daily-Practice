@@ -14,6 +14,20 @@ createApp({
         const filters = ['All', 'Active', 'Completed'];
         const isDark = ref(false);
         const isListening = ref(false);
+        const currentThemeName = ref('cosmic');
+        const taskProgress = computed(() => {
+            if (tasks.value.length === 0) return 0;
+            const completed = tasks.value.filter(t => t.completed).length;
+            return (completed / tasks.value.length) * 100;
+        });
+
+        // Themes Configuration
+        const themes = {
+            cosmic: { primary: '#6366f1', secondary: '#a855f7' },
+            nature: { primary: '#10b981', secondary: '#34d399' },
+            sunset: { primary: '#f43f5e', secondary: '#fbbf24' },
+            ocean: { primary: '#0ea5e9', secondary: '#3b82f6' }
+        };
 
         // "AI" Suggestions Database
         const suggestions = [
@@ -27,31 +41,41 @@ createApp({
             "Clean the workspace"
         ];
 
-        // Load from LocalStorage
+        // Load from Backend/LocalStorage
         onMounted(() => {
-            const savedTasks = localStorage.getItem('myTasks');
-            if (savedTasks) {
-                tasks.value = JSON.parse(savedTasks);
-            }
-            
+            // Fetch from Backend API
+            fetch('/api/tasks')
+                .then(res => res.json())
+                .then(data => tasks.value = data)
+                .catch(err => console.error("Error fetching tasks:", err));
+
+            // Load theme
+            const savedTheme = localStorage.getItem('appTheme') || 'cosmic';
+            setTheme(savedTheme);
+
             // Check system preference for dark mode
-            if (localStorage.getItem('theme') === 'dark' || 
-               (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            if (localStorage.getItem('darkMode') === 'true' || 
+               (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
                 isDark.value = true;
                 document.documentElement.classList.add('dark');
             }
         });
 
-        // Watchers to save state
-        watch(tasks, (newVal) => {
-            localStorage.setItem('myTasks', JSON.stringify(newVal));
-        }, { deep: true });
-
         // Methods
-        const addTask = () => {
+        const addTask = async () => { // Now with NLP!
             if (newTask.value.trim() === '') return;
             
-            tasks.value.unshift({
+            let taskText = newTask.value;
+            let dueDate = newTaskDate.value;
+
+            const results = chrono.parse(taskText);
+            if (results.length > 0 && !newTaskDate.value) {
+                const dateResult = results[0].start.date();
+                dueDate = new Date(dateResult.valueOf() - (dateResult.getTimezoneOffset() * 60000)).toISOString().slice(0, -8);
+                taskText = (taskText.slice(0, results[0].index) + taskText.slice(results[0].index + results[0].text.length)).trim();
+            }
+
+            const taskObj = {
                 id: Date.now(),
                 text: newTask.value,
                 completed: false,
@@ -60,7 +84,16 @@ createApp({
                 category: newTaskCategory.value,
                 priority: newTaskPriority.value,
                 isEditing: false
+            };
+            
+            // Save to Backend
+            await fetch('/api/tasks', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(taskObj)
             });
+
+            tasks.value.unshift(taskObj); // Optimistic update
             
             newTask.value = '';
             newTaskDate.value = '';
@@ -68,12 +101,20 @@ createApp({
             newTaskPriority.value = 'Medium';
         };
 
-        const deleteTask = (id) => {
+        const deleteTask = async (id) => {
+            await fetch(`/api/tasks/${id}`, { method: 'DELETE' });
             tasks.value = tasks.value.filter(t => t.id !== id);
         };
 
-        const toggleComplete = (task) => {
+        const toggleComplete = async (task) => {
             task.completed = !task.completed;
+            
+            await fetch(`/api/tasks/${task.id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ completed: task.completed })
+            });
+
             if (task.completed) {
                 confetti({
                     particleCount: 100,
@@ -87,11 +128,19 @@ createApp({
             isDark.value = !isDark.value;
             if (isDark.value) {
                 document.documentElement.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
+                localStorage.setItem('darkMode', 'true');
             } else {
                 document.documentElement.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
+                localStorage.setItem('darkMode', 'false');
             }
+        };
+
+        const setTheme = (name) => {
+            currentThemeName.value = name;
+            const theme = themes[currentThemeName.value];
+            document.documentElement.style.setProperty('--color-primary', theme.primary);
+            document.documentElement.style.setProperty('--color-secondary', theme.secondary);
+            localStorage.setItem('appTheme', name);
         };
 
         const suggestTask = () => {
@@ -127,9 +176,15 @@ createApp({
             task.isEditing = true;
         };
 
-        const saveEdit = (task) => {
+        const saveEdit = async (task) => { // Updated to save to backend
             if (task.tempText.trim()) task.text = task.tempText;
             task.isEditing = false;
+            
+            await fetch(`/api/tasks/${task.id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text: task.text })
+            });
         };
 
         const cancelEdit = (task) => {
@@ -139,7 +194,7 @@ createApp({
         // Helpers
         const formatDate = (date) => new Date(date).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
         const isOverdue = (task) => {
-            if (!task.dueDate || task.completed) return false;
+            if (!task.dueDate) return false;
             return new Date(task.dueDate) < new Date();
         };
 
@@ -158,6 +213,9 @@ createApp({
             newTaskPriority,
             categories,
             priorities,
+            themes,
+            setTheme,
+            taskProgress,
             currentFilter,
             filters,
             isDark,
