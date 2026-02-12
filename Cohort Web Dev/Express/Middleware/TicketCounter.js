@@ -30,6 +30,12 @@ app.get("/ride1",function(req,res){
     });
 })
 
+app.get("/ride2",function(req,res){
+    res.json({
+        msg : "You are eligible for ride 2"
+    })
+})
+
 app.listen(3000,()=>{
     console.log("Server is running on http://localhost:3000/ride1");
 });
