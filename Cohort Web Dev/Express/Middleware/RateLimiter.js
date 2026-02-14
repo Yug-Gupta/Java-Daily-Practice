@@ -20,3 +20,12 @@ app.use(function(req,res,next){
         next();
     }
 })
+
+
+app.get("/user",function(req,res){
+    res.json({numberOfRequestForUser});
+});
+
+app.listen(3000,()=>{
+    console.log("Server is running on : http://localhost:3000/user");
+})
