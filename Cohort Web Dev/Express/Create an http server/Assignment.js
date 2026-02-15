@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 
+
+// (/sum/a/b) => params
 app.get("/sum/:a/:b",function(req,res){
     const a = Number(req.params.a);
     const b = Number(req.params.b);

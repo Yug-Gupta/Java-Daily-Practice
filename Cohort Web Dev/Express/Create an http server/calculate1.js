@@ -7,6 +7,8 @@ function calculateSum(n){
 
 const app = express();
 
+
+// (/?n=5) => query
 app.get('/',function (req,res){
     const n = req.query.n;  // This is used to take the input in the url -> ( Method is -> /?n=5 )
     let ans = calculateSum(n);
