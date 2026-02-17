@@ -17,6 +17,33 @@ app.get("/sum/:a/:b",function(req,res){
     });
 });
 
+app.get("/mul/:a/:b",function(req,res){
+    const a = req.params.a;
+    const b = req.params.b;
+    requestCount();
+    res.json({
+        Multiply : a*b
+    });
+});
 
+app.get("/div/:a/:b",function(req,res){
+    const a = req.params.a;
+    const b = req.params.b;
+    requestCount();
+    res.json({
+        Divide : a/b
+    });
+});
 
-app.listen(3000);
+app.get("/sub/:a/:b",function(req,res){
+    const a = Number(req.params.a);
+    const b = Number(req.params.b);
+    requestCount();
+    res.json({
+        Subtraction : a-b
+    });
+});
+
+app.listen(3000,()=>{
+    console.log("Server is running");
+});
