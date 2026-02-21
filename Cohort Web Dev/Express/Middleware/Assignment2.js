@@ -11,6 +11,30 @@ app.post("/sum",function(req,res){
     });
 })
 
+app.post("/mul",function(req,res){
+    const a = req.body.a;
+    const b = req.body.b;
+    res.json({
+        Multiply : a*b
+    });
+});
+
+app.post("/div",function(req,res){
+    const a = req.body.a;
+    const b = req.body.b;
+    res.json({
+        Divide : a/b
+    });
+})
+
+app.post("/sub",function(req,res){
+    const a = req.body.a;
+    const b = req.body.b;
+    res.json({
+        Subtract : a-b
+    });
+});
+
 app.listen(3000,()=>{
     console.log("Server is running...");
 });
