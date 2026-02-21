@@ -1,10 +1,14 @@
 const express = require("express");
-const cors = require("cors");
 const app = express();
 
 
 app.use(express.json());
-app.use(cors());
+
+
+//By this we can call our index.html in the same server of the index.js file
+app.get("/",function(req,res){
+    res.sendFile(__dirname+"/index.html");
+})
 
 app.post("/sum",function(req,res){
     const a = Number(req.body.a);
