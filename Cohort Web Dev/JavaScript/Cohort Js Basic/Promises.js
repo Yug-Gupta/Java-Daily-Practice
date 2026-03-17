@@ -48,7 +48,7 @@
 
 /* 
 Promise class ->
- Promise class gives u a primise that I will return you something in the future.
+ Promise class gives u a promise that I will return you something in the future.
 
 */
 
